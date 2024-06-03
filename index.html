@@ -115,6 +115,27 @@
         {name: 'Dhruv', class: 110},
       ]);
     }
+
+    let jsonObj = `{
+      "name": "Andy",
+      "class": 110
+    }`;
+
+    try{
+      JSON.parse(jsonObj);
+    }catch(err){
+      console.error({message: 'this catch should be ignored...', err});
+    }
+
+    // Me trying to add a new element to my jsonObject...
+    jsonObj += 'age: 20';
+
+    try{
+      JSON.parse(jsonObj);
+    }catch(err){
+      console.error({message: 'bad json object!', jsonObj, err});
+    }
+
   </script>
 </body>
 
