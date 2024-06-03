@@ -69,20 +69,20 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
+      <button onclick="console.log('Logging')">Console Log</button>
+      <button onclick="console.error('Error')" >Console Error</button>
+      <button onclick="console.count()">Console Count</button>
+      <button onclick="console.warn('Warn')">Console Warn</button>
+      <button onclick="assertFail()">Console Assert</button>
+      <button onclick="console.clear()">Console Clear</button>
+      <button onclick="console.dir(document.head)">Console Dir</button>
+      <button onclick="console.dirxml(document.head)">Console dirxml</button>
+      <button onclick="console.group('Logging')">Console Group Start</button>
+      <button onclick="console.groupEnd('Logging')">Console Group End</button>
+      <button onclick="consoleTable()">Console Table</button>
+      <button onclick="console.time()">Start Timer</button>
+      <button onclick="console.timeEnd()">End Timer</button>
+      <button onclick="console.trace()">Console Trace</button>
       <button>Trigger a Global Error</button>
     </section>
   </main>
@@ -100,9 +100,23 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
+    // https://developer.chrome.com/docs/devtools/console/api#group
     // Start your code here
     // You may move this JS to another file if you wish
+    function assertFail(){
+      let x = 3;
+      let y = 2;
+      console.assert(x<y, {x,y, message: 'expected x to be less than y'});
+    }
+
+    function consoleTable(){
+      console.table([
+        {name: 'Andy', class: 110},
+        {name: 'Dhruv', class: 110},
+      ]);
+    }
   </script>
 </body>
 
 </html>
+
