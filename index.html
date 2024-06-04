@@ -83,10 +83,17 @@
       <button onclick="console.time()">Start Timer</button>
       <button onclick="console.timeEnd()">End Timer</button>
       <button onclick="console.trace()">Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id ="triggerErrorButton">Trigger a Global Error</button>
     </section>
   </main>
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "91360521659e4b26a35d484e6c45749d"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                        
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -135,7 +142,28 @@
     }catch(err){
       console.error({message: 'bad json object!', jsonObj, err});
     }
+    class CustomError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "CustomError";
+      }
+    }
 
+    try {
+      throw new CustomError("This is a custom error");
+    } catch (err) {
+      if (err instanceof CustomError) {
+        console.error("Handled a custom error:", err.message);
+      } else {
+        console.error("Unhandled error:", err);
+      }
+    }
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.log("An error occurred:", message);
+    };
+    document.getElementById("triggerErrorButton").addEventListener("click", function() {
+      throw new Error("This is a global error");
+    });
   </script>
 </body>
 
